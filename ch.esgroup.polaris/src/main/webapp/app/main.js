@@ -12,7 +12,6 @@ require.config({
     	respond : 'lib/respond/respond.src',
     	jquery: 'lib/jquery/jquery-1.10.2',
     	polymer : 'lib/polymer/polymer.min',
-    	platform : 'lib/polymer/platform.min',
     	xtag: 'components/x-tag-core/src/core',
         underscore: 'lib/lodash/lodash',
         director: 'lib/director/build/director',
@@ -32,7 +31,7 @@ require.config({
         bootstrap: {
             deps: [ 'modernizr', 'respond', 'jquery' ]
         },
-        polymer: { exports: 'Polymer'/*, deps: [ 'platform' ]*/},
+        polymer: { exports: 'Polymer' },
         xtag: { exports: 'xtag', deps: ['polymer'] }
     },
 
@@ -55,7 +54,7 @@ require.config({
         { name: 'when', location: 'lib/when', main: 'when' },
         { name: 'meld', location: 'lib/meld', main: 'meld' },
         { name: 'poly', location: 'lib/poly' },
-        { name: 'polymer', location: 'lib/polymer', main: 'polymer.min' },
+        //{ name: 'polymer', location: 'lib/polymer', main: 'polymer.min' },
         { name: 'yaap', location: 'lib/yaap', main: 'yaap' },
         { name: 'dojo', location: 'lib/dojo' }
     ]
