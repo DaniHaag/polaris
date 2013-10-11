@@ -4,16 +4,16 @@ require.config({
 
     baseUrl: '.',
     
-    urlArgs: "timestamp="+(new Date()).getTime(),
+    //urlArgs: "timestamp="+(new Date()).getTime(),
 
     paths: {
-    	text: 'lib/require/text',
-    	i18n: 'lib/require/i18n',
-    	wc: 'lib/require/wc',
-    	polymer : 'lib/polymer/polymer/polymer',
+    	bootstrap: 'lib/bootstrap/dist/js/bootstrap',
+    	modernizr : 'lib/modernizr/modernizr',
+    	respond : 'lib/respond/respond.src',
+    	jquery: 'lib/jquery/jquery-1.10.2',
+    	polymer : 'lib/polymer/polymer.min',
+    	platform : 'lib/polymer/platform.min',
     	xtag: 'components/x-tag-core/src/core',
-        jquery: 'lib/jquery/jquery-1.10.2',
-        bootstrap: 'lib/bootstrap/dist/js/bootstrap',
         underscore: 'lib/lodash/lodash',
         director: 'lib/director/build/director',
         hasher: 'lib/hasher/dist/js/hasher',
@@ -21,14 +21,18 @@ require.config({
         knockout: 'lib/knockout/knockout-3.0.0rc.debug',
         postal: 'lib/postal/lib/postal',
         riveter: 'lib/riveter/riveter',
+        // plugins
+    	text: 'lib/require/text',
+    	wc: 'lib/require/wc',
+    	i18n: 'lib/require/i18n',
         domReady: 'lib/require/domReady'
     },
 
     shim: {
         bootstrap: {
-            deps: ['jquery']
+            deps: [ 'modernizr', 'respond', 'jquery' ]
         },
-        polymer: { exports: 'Polymer' },
+        polymer: { exports: 'Polymer', deps: [ 'platform' ]},
         xtag: { exports: 'xtag', deps: ['polymer'] }
     },
 
@@ -51,7 +55,7 @@ require.config({
         { name: 'when', location: 'lib/when', main: 'when' },
         { name: 'meld', location: 'lib/meld', main: 'meld' },
         { name: 'poly', location: 'lib/poly' },
-       //{ name: 'polymer', location: 'lib/polymer', main: 'polymer-v0.0.20131003.min' }
+        { name: 'polymer', location: 'lib/polymer', main: 'polymer.min' },
         { name: 'yaap', location: 'lib/yaap', main: 'yaap' },
         { name: 'dojo', location: 'lib/dojo' }
     ]
