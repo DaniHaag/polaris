@@ -4,7 +4,7 @@ require.config({
 
     baseUrl: '.',
     
-    //urlArgs: "timestamp="+(new Date()).getTime(),
+    urlArgs: 'timestamp=' + (new Date()).getTime(),
 
     paths: {
     	bootstrap: 'lib/bootstrap/dist/js/bootstrap',
@@ -32,7 +32,7 @@ require.config({
         bootstrap: {
             deps: [ 'modernizr', 'respond', 'jquery' ]
         },
-        polymer: { exports: 'Polymer', deps: [ 'platform' ]},
+        polymer: { exports: 'Polymer'/*, deps: [ 'platform' ]*/},
         xtag: { exports: 'xtag', deps: ['polymer'] }
     },
 
