@@ -1,4 +1,4 @@
-define([ 'hdk/mvc/view/ViewTemplate', 'text!./view.html' ], 
+define([ 'hdk/mvc/view/ViewTemplate', 'text!./view/View.html' ], 
 function(ViewTemplate, template) {
 
 	function Component() {
