@@ -4,17 +4,17 @@
         create: {
             module: 'hdk/mvc/controller/DomController',
             args: [ '#theme', {
-                '.footer': {
-                    $ref: 'footerComponent'
+                '.disclaimers': {
+                    $ref: 'disclaimersComponent'
                 }
             } ]
         },
         ready: 'start'
     },
 
-    footerComponent: {
+    disclaimersComponent: {
         create: {
-            module: './footer/Component'
+            module: './disclaimers/Component'
         }
     }
 
