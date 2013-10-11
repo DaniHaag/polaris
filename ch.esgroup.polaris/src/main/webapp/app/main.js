@@ -3,8 +3,15 @@
 require.config({
 
     baseUrl: '.',
+    
+    urlArgs: "timestamp="+(new Date()).getTime(),
 
     paths: {
+    	text: 'lib/require/text',
+    	i18n: 'lib/require/i18n',
+    	wc: 'lib/require/wc',
+    	polymer : 'lib/polymer/polymer/polymer',
+    	xtag: 'components/x-tag-core/src/core',
         jquery: 'lib/jquery/jquery-1.10.2',
         bootstrap: 'lib/bootstrap/dist/js/bootstrap',
         underscore: 'lib/lodash/lodash',
@@ -14,25 +21,23 @@ require.config({
         knockout: 'lib/knockout/knockout-3.0.0rc.debug',
         postal: 'lib/postal/lib/postal',
         riveter: 'lib/riveter/riveter',
-        polymer: 'lib/polymer',
-        domReady: 'lib/require/domReady',
-        text: 'lib/require/text',
-        i18n: 'lib/require/i18n',
-        wc: 'lib/require/wc'
+        domReady: 'lib/require/domReady'
     },
 
     shim: {
         bootstrap: {
             deps: ['jquery']
         },
-        polymer: { exports: 'Polymer' }
+        polymer: { exports: 'Polymer' },
+        xtag: { exports: 'xtag', deps: ['polymer'] }
     },
 
     config: {
         ws: {
-            standardModule: 'polymer',
-            polymerModule: 'polymer',
-            debug: true
+    		standardModule: 'polymer',
+    		xTagModule: 'xtag',
+    		polymerModule: 'polymer',
+    		debug: true
         }
     },
 
@@ -46,13 +51,14 @@ require.config({
         { name: 'when', location: 'lib/when', main: 'when' },
         { name: 'meld', location: 'lib/meld', main: 'meld' },
         { name: 'poly', location: 'lib/poly' },
+       //{ name: 'polymer', location: 'lib/polymer', main: 'polymer-v0.0.20131003.min' }
         { name: 'yaap', location: 'lib/yaap', main: 'yaap' },
         { name: 'dojo', location: 'lib/dojo' }
     ]
 
 });
 
-require([ 'poly/all', 'bootstrap', 'hpt/Application', 'when', 'domReady' ], function (poly, bootstrap, Application, when, domReady) {
+require([ 'bootstrap', 'hpt/Application', 'when', 'domReady' ], function (bootstrap, Application, when, domReady) {
     var app = new Application();
     when(app.init())
         .then(app.start.bind(app))
