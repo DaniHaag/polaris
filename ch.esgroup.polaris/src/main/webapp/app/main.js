@@ -4,7 +4,7 @@ require.config({
 
     baseUrl: '.',
     
-    urlArgs: 'timestamp=' + (new Date()).getTime(),
+    //urlArgs: 'timestamp=' + (new Date()).getTime(),
 
     paths: {
     	bootstrap: 'lib/bootstrap/dist/js/bootstrap',

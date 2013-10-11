@@ -20,7 +20,7 @@ define([ 'jquery', 'underscore' ], function ($, _) {
         start: function () {
             for (path in this.handles) {
                 if (this.handles.hasOwnProperty(path)) {
-                    this.scope.find(path).each(function (index) {
+                    this.scope.find(path).each(function (index, parent) {
                         var paramString = $(this).attr("params");
                         var params = paramString ? eval("({" + paramString + "})") : {};
 
@@ -31,7 +31,7 @@ define([ 'jquery', 'underscore' ], function ($, _) {
                                 handler.deactivate();
                             })(this.handles[path]);
                         });
-                        this.handles[path].activate(this.scope, params);
+                        this.handles[path].activate($(parent), params);
                     }.bind(this));
                 }
             }
