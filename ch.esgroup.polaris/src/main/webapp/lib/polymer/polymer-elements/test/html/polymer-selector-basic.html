@@ -3,8 +3,8 @@
   <head>
     <title>polymer-selector-basic</title>
     <script src="../../../polymer/polymer.js"></script>
-    <script src="../../../polymer/tools/test/htmltest.js"></script>
-    <script src="../../node_modules/chai/chai.js"></script>
+    <script src="../../../tools/test/htmltest.js"></script>
+    <script src="../../../tools/test/chai/chai.js"></script>
     <link rel="import" href="../../polymer-selector/polymer-selector.html">
     <style>
       .polymer-selected {
@@ -38,6 +38,7 @@
     
     <script>
       var assert = chai.assert;
+      var async = requestAnimationFrame;
       document.addEventListener('WebComponentsReady', function() {
         // selector1
         var s = document.querySelector('#selector1');
@@ -59,10 +60,7 @@
             assert.equal(e.detail.item, s.selectedItem);
           }
         });
-        // set selected
-        s.selected = 'item5';
-        Platform.flush();
-        Platform.endOfMicrotask(function() {
+        new PathObserver(s, 'selected', function() {
           // check polymer-select event
           assert.equal(selectEventCounter, 1);
           // check selected class
@@ -73,11 +71,16 @@
           selectEventCounter = 0;
           s.selected = 'item5';
           Platform.flush();
-          Platform.endOfMicrotask(function() {
+          // TODO(ffu): would be better to wait for something to happen
+          // instead of not to happen
+          setTimeout(function() {
             assert.equal(selectEventCounter, 0);
             done();
-          });
+          }, 50);
         });
+        // set selected
+        s.selected = 'item5';
+        Platform.flush();
       });
     </script>
   </body>

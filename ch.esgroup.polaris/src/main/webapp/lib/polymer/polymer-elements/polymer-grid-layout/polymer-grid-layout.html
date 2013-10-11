@@ -1,4 +1,4 @@
-<polymer-element name="polymer-grid-layout" attributes="nodes layout">
+<polymer-element name="polymer-grid-layout" attributes="nodes layout auto">
   <template>
   </template>
   <script>
@@ -6,18 +6,35 @@
       Polymer('polymer-grid-layout', {
         nodes: null,
         layout: null,
+        auto: false,
         nodesChanged: function() {
           this.invalidate();
         },
         layoutChanged: function() {
           this.invalidate();
         },
+        autoNodes: function() {
+          this.nodes = this.parentNode.children.array().filter(
+            function(node) {
+              switch(node.localName) {
+                case 'polymer-grid-layout':
+                case 'style':
+                  return false;
+              }
+              return true;
+            }
+          );
+        },
         invalidate: function() {
-          if (this.layout && this.nodes) {
+          if (this.layout) {
+            // job debounces layout, only letting it occur every N ms
             this.layoutJob = this.job(this.layoutJob, this.relayout);
           }
         },
         relayout: function() {
+          if (!this.nodes || this.auto) {
+            this.autoNodes();
+          }
           layout(this.layout, this.nodes);
           this.asyncFire('polymer-grid-layout');
         }
@@ -29,10 +46,12 @@
 
       function line(axis, p, d) {
         var l = document.createElement('line');
-        var extent = (axis === 'left' ? 'width' : (axis === 'top' ? 'height' : axis));
+        var extent = (axis === 'left' ? 'width' : 
+          (axis === 'top' ? 'height' : axis));
         l.setAttribute('extent', extent);
         if (d < 0) {
-          axis = (axis === 'left' ? 'right' : (axis === 'top' ? 'bottom' : axis));
+          axis = (axis === 'left' ? 'right' : 
+            (axis === 'top' ? 'bottom' : axis));
         }
         p = Math.abs(p);
         l.style[axis] = p + 'px';
@@ -185,7 +204,7 @@
       // so 'unposition' is really 'naturalize' or something
       function unposition(box) {
         var style = box.style;
-        style.right = style.bottom = style.width = style.height = '';
+        //style.right = style.bottom = style.width = style.height = '';
         style.position = 'absolute';
         style.display = 'inline-block';
         style.boxSizing = style.mozBoxSizing = 'border-box';
@@ -208,8 +227,10 @@
       }
 
       function position(elt, left, right, top, bottom) {
-        _position(elt.style, 'top', 'bottom', 'height', rows[top], rows[bottom]);
-        _position(elt.style, 'left', 'right', 'width', columns[left], columns[right]);
+        _position(elt.style, 'top', 'bottom', 'height', rows[top], 
+            rows[bottom]);
+        _position(elt.style, 'left', 'right', 'width', columns[left], 
+            columns[right]);
       }
 
       function layout(matrix, anodes, alineParent) {
@@ -268,10 +289,12 @@
                 node.style[offscreen] = node.offsetWidth * -2 + 'px';
                 break;
               case 'right':
-                node.style.left = node.offsetParent.offsetWidth + node.offsetWidth + 'px';
+                node.style.left = node.offsetParent.offsetWidth 
+                    + node.offsetWidth + 'px';
                 break;
               case 'bottom':
-                node.style.top = node.parentNode.offsetHeight + node.offsetHeight + 'px';
+                node.style.top = node.parentNode.offsetHeight 
+                    + node.offsetHeight + 'px';
                 break;
               default:
                 node.style[Math.random() >= 0.5 ? 'left' : 'top'] = '-110%';
