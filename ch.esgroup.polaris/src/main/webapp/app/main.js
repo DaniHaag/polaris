@@ -8,8 +8,8 @@ require.config({
 
     paths: {
     	bootstrap: 'lib/bootstrap/dist/js/bootstrap',
-    	modernizr : 'lib/modernizr/modernizr',
-    	respond : 'lib/respond/respond.src',
+    	//modernizr : 'lib/modernizr/modernizr',
+    	//respond : 'lib/respond/respond.src',
     	jquery: 'lib/jquery/jquery-1.10.2',
     	polymer : 'lib/polymer/polymer.min',
     	platform : 'lib/polymer/platform.min',
