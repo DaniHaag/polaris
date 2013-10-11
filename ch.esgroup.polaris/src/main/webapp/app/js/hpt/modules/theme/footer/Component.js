@@ -1,5 +1,5 @@
-define([ 'hdk/mvc/view/ViewTemplate', 'text!./view.html' ], function(
-		ViewTemplate, template) {
+define([ 'hdk/mvc/view/ViewTemplate', 'wc!hdk/ui/elements/test.html!dec!polymer', 'text!./view.html' ], 
+function(ViewTemplate, polymerCookie, template) {
 
 	function Component() {
 	}
