@@ -1,6 +1,6 @@
 define("router",
-  ["route-recognizer","rsvp"],
-  function(RouteRecognizer, RSVP) {
+  ["route-recognizer", "when"],
+  function(RouteRecognizer, when) {
     "use strict";
     /**
       @private
@@ -163,7 +163,7 @@ define("router",
     };
 
     function errorTransition(router, reason) {
-      return new Transition(router, RSVP.reject(reason));
+      return new Transition(router, when.reject(reason));
     }
 
 
@@ -965,7 +965,7 @@ define("router",
         wasTransitioning = true;
       }
 
-      var deferred = RSVP.defer(),
+      var deferred = when.defer(),
           transition = new Transition(router, deferred.promise);
 
       transition.targetName = targetName;
@@ -1140,7 +1140,7 @@ define("router",
 
       if (index === handlerInfos.length) {
         // No more contexts to resolve.
-        return RSVP.resolve(transition.resolvedModels);
+        return when.resolve(transition.resolvedModels);
       }
 
       var router = transition.router,
@@ -1160,7 +1160,7 @@ define("router",
         return proceed();
       }
 
-      return RSVP.resolve().then(handleAbort)
+      return when.resolve().then(handleAbort)
                            .then(beforeModel)
                            .then(handleAbort)
                            .then(model)
@@ -1173,7 +1173,7 @@ define("router",
       function handleAbort(result) {
         if (transition.isAborted) {
           log(transition.router, transition.sequence, "detected abort.");
-          return RSVP.reject(new Router.TransitionAborted());
+          return when.reject(new Router.TransitionAborted());
         }
 
         return result;
@@ -1183,7 +1183,7 @@ define("router",
         if (reason instanceof Router.TransitionAborted) {
           // if the transition was aborted and *no additional* error was thrown,
           // reject with the Router.TransitionAborted instance
-          return RSVP.reject(reason);
+          return when.reject(reason);
         }
 
         // otherwise, we're here because of a different error
@@ -1196,7 +1196,7 @@ define("router",
         trigger(router, handlerInfos.slice(0, index + 1), true, ['error', reason, transition]);
 
         // Propagate the original error.
-        return RSVP.reject(reason);
+        return when.reject(reason);
       }
 
       function beforeModel() {

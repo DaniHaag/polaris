@@ -4,17 +4,17 @@
         create: {
             module: 'hdk/mvc/controller/DomController',
             args: [ '#theme', {
-                '.disclaimers': {
-                    $ref: 'disclaimersComponent'
+                '.globalNavigation': {
+                    $ref: 'globalNavigationComponent'
                 }
             } ]
         },
         ready: 'start'
     },
 
-    disclaimersComponent: {
+    globalNavigationComponent: {
         create: {
-            module: './disclaimers/Component'
+            module: './header/globalnavigation/Component'
         }
     }
 

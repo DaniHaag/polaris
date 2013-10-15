@@ -1,25 +1,25 @@
-define([ 'hdk/mvc/view/ViewTemplate', 'text!./view/View.html' ], 
-function(ViewTemplate, template) {
+define([ 'hdk/mvc/view/ViewTemplate', './ViewModel', 'text!./view.html', , ], function(ViewTemplate, ViewModel, view) {
 
-	function Component() {
-	}
+	var Component = function(moduleContext) {
 
-	Component.prototype = {
+		var panel, vm = null;
 
-		panel : null,
-
-		activate : function(parent) {
-			if (!this.panel) {
-				this.panel = new ViewTemplate(parent, template);
+		this.activate = function(parent, params) {
+			if (!panel) {
+				panel = new Boiler.ViewTemplate(parent, template, nls);
+				Boiler.ViewTemplate.setStyleLink(stylePath);
+				vm = new ViewModel(moduleContext);
+				ko.applyBindings(vm, panel.getDomElement());
 			}
-			this.panel.show();
-		},
+			vm.initialize(params.name);
+			panel.show();
+		};
 
-		deactivate : function() {
-			if (this.panel) {
-				this.panel.hide();
+		this.deactivate = function() {
+			if (panel) {
+				panel.hide();
 			}
-		}
+		};
 	};
 
 	return Component;
