@@ -1,43 +1,44 @@
 ﻿define([ 'hdk/core/route/Router' ], function (Router) {
 
-    var UrlController = function (scope) {
+	function UrlController (scope, routes, routingService) {
 
-        var allHandles = {};
-        var router = new Router();
+        var allHandlers = {};
+        
+
 
         scope.bind('DEACTIVATE_HANDLERS', function () {
-            for (handler in allHandles) {
-                if (allHandles.hasOwnProperty(handler)) {
-                    allHandles[handler].deactivate();
+            for (handler in allHandlers) {
+                if (allHandlers.hasOwnProperty(handler)) {
+                    allHandlers[handler].deactivate();
                 }
             }
         });
 
-        function Wrapper(handle) {
+        function Wrapper(handler) {
 
-            this.handle = handle;
+            this.handler = handler;
 
             var selfWrapper = this;
             this.activate = function (vals) {
                 scope.trigger('DEACTIVATE_HANDLERS');
-                selfWrapper.handle.activate(scope, vals);
+                selfWrapper.handler.activate(scope, vals);
             };
 
             this.deactivate = function () {
-                if (jQuery.isFunction(selfWrapper.handle.deactivate)) {
-                    selfWrapper.handle.deactivate();
+                if (jQuery.isFunction(selfWrapper.handler.deactivate)) {
+                    selfWrapper.handler.deactivate();
                 }
             };
         }
 
         return {
 
-            addRoutes: function (handles) {
+            addRoutes: function (handlers) {
                 for (path in handles) {
-                    if (handles.hasOwnProperty(path)) {
-                        var handlerObj = new Wrapper(handles[path]);
+                    if (handlers.hasOwnProperty(path)) {
+                        var handlerObj = new Wrapper(handlers[path]);
                         router.addRoute(path, handlerObj.activate);
-                        allHandles[path] = handlerObj;
+                        allHandlers[path] = handlerObj;
                     }
                 }
             },
@@ -47,11 +48,17 @@
             }
         };
 
-    };
+    }
 
-    UrlController.goTo = function (newPath) {
-        Router.routeTo(newPath);
-    };
+	UrlController.prototype = {
+		
+		routingService : null,
+			
+		goTo : function (newPath) {
+			this.Router.routeTo(newPath);
+		}
+			
+	};
 
     return UrlController;
 

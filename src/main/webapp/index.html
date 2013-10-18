@@ -17,12 +17,10 @@
     <link type="text/css" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
     <!--link type="text/css" rel="stylesheet/less" href="theme/theme.less" /-->
     <!--script type="text/javascript" src="lib/less/less-1.4.2.js"></script-->
-    <!-- web components -->
-    <script type="text/javascript" src="lib/polymer/polymer.min.js"></script>
 </head>
 <body>
-	<div id="app">
-		<header id="header" class="navbar navbar-inverse navbar-fixed-top">
+	<div id="theme">
+		<header id="header" class="navbar navbar-inverse">
 			<div class="container">
 				<div class="navbar-header">
 					<button data-target=".bs-navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle">
@@ -37,7 +35,13 @@
 			</div>
 		</header>
 		<section class="content"></section>
-		<footer class="footer"><footer>
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="disclaimers" class="col-md-12"></div>
+				</div>
+			</div>
+		</footer>
 	</div>
 	<script type="text/javascript" src="lib/require/require.js" data-main="app/main"></script>
 </body>
