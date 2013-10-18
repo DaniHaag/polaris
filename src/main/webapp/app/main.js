@@ -29,7 +29,7 @@ require.config({
         bootstrap: {
             deps: [ 'modernizr', 'respond', 'jquery' ]
         },
-        history: {},
+        history: { exports: 'History' },
     },
 
     packages: [
