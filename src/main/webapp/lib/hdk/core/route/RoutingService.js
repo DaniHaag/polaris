@@ -1,4 +1,4 @@
-define([ 'director' ], function(Router) {
+define([ 'router' ], function(Router) {
 
 	function RoutingService() {
 		this.router = new Router();

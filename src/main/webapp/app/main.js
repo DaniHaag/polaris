@@ -16,10 +16,8 @@ require.config({
         underscore: 'lib/lodash/lodash',
         router: 'lib/router/dist/router.amd',
         'route-recognizer': 'lib/route-recognizer/route-recognizer.amd',
-        hasher: 'lib/hasher/dist/js/hasher',
+        history: 'lib/history/scripts/bundled/html4+html5/native.history',
         knockout: 'lib/knockout/knockout-3.0.0rc.debug',
-        postal: 'lib/postal/lib/postal',
-        riveter: 'lib/riveter/riveter',
         // plugins
     	text: 'lib/require/text',
     	wc: 'lib/require/wc',
@@ -31,17 +29,7 @@ require.config({
         bootstrap: {
             deps: [ 'modernizr', 'respond', 'jquery' ]
         },
-        polymer: { exports: 'Polymer' },
-        xtag: { exports: 'xtag', deps: ['polymer'] }
-    },
-
-    config: {
-        ws: {
-    		standardModule: 'polymer',
-    		xTagModule: 'xtag',
-    		polymerModule: 'polymer',
-    		debug: true
-        }
+        history: {},
     },
 
     packages: [
@@ -54,7 +42,6 @@ require.config({
         { name: 'when', location: 'lib/when', main: 'when' },
         { name: 'meld', location: 'lib/meld', main: 'meld' },
         { name: 'poly', location: 'lib/poly' },
-        //{ name: 'polymer', location: 'lib/polymer', main: 'polymer.min' },
         { name: 'yaap', location: 'lib/yaap', main: 'yaap' },
         { name: 'dojo', location: 'lib/dojo' }
     ]
