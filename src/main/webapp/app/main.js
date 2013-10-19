@@ -33,8 +33,7 @@ require.config({
     },
 
     packages: [
-        { name: 'hpt', location: 'app/js/hpt' },
-        { name: 'hdk', location: 'lib/hdk' },
+        { name: 'polaris', location: 'app/js/polaris' },
         { name: 'curl', location: 'lib/curl/src/curl' },
         { name: 'wire', location: 'lib/wire', main: 'wire' },
         { name: 'rest', location: 'lib/rest', main: 'rest' },
@@ -48,13 +47,14 @@ require.config({
 
 });
 
-require([ 'bootstrap', 'hpt/Application', 'when', 'domReady' ], function (bootstrap, Application, when, domReady) {
+require([ 'bootstrap', 'polaris/Application', 'when', 'domReady' ],
+function (bootstrap, Application, when, domReady) {
     var app = new Application();
     when(app.init())
-        .then(app.start.bind(app))
-        .then(function () {
-            console.info('the application successfully started');
-        }, function (error) {
-            console.error('the application failed to start:', error);
-        });
+    .then(app.start.bind(app))
+    .then(function () {
+    	console.info('polaris successfully started');
+    }, function (error) {
+    	console.error('polaris failed to start:', error);
+    });
 });

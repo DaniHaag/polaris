@@ -2,7 +2,7 @@
 
 	themeDomController : {
 		create : {
-			module : 'hdk/mvc/controller/DomController',
+			module : 'polaris/mvc/controller/DomController',
 			args : [ '#theme', {
 				'.globalNavigation' : {
 					$ref : 'globalNavigationComponent'

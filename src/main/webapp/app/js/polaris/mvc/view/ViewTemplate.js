@@ -1,4 +1,4 @@
-﻿define([ 'hdk/core/dom/Styler', 'hdk/core/localization/Localizer', 'underscore' ], function (Styler, Localizer, _) {
+﻿define([ 'polaris/core/dom/Styler', 'polaris/core/localization/Localizer', 'underscore' ], function (Styler, Localizer, _) {
 
     function ViewTemplate(parent, viewTemplate, nls, styleText) {
         this.createView(parent, viewTemplate, nls, styleText);

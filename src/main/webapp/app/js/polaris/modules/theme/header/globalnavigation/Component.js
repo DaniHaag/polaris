@@ -1,4 +1,4 @@
-define([ 'knockout', 'hdk/mvc/view/ViewTemplate', './ViewModel', 'text!./template/View.html'], function(ko, ViewTemplate, ViewModel, template) {
+define([ 'knockout', 'polaris/mvc/view/ViewTemplate', './ViewModel', 'text!./template/View.html'], function(ko, ViewTemplate, ViewModel, template) {
 
 	function Component() {
 	}

@@ -2,7 +2,7 @@
 
     settingsService: {
         create: {
-            module: 'hdk/core/property/PropertyService',
+            module: 'polaris/core/property/PropertyService',
             args: [
                 {
                     $ref: 'settingsStore'

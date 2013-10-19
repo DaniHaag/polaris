@@ -1,4 +1,4 @@
-﻿define([ 'hdk/core/route/Router' ], function (Router) {
+﻿define([ 'polaris/core/route/Router' ], function (Router) {
 
 	function UrlController (scope, routes, routingService) {
 

@@ -11,14 +11,14 @@
 		subModuleContexts : null,
 
 		init : function() {
-			return wire('hpt/context')
+			return wire('polaris/context')
 			.then(function(context) {
 				this.context = context;
 			}.bind(this));
 		},
 
 		start : function() {
-			return this.loadModule('hpt/modules/theme/context');
+			return this.loadModule('polaris/modules/theme/context');
 		},
 
 		stop : function() {
