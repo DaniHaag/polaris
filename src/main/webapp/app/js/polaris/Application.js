@@ -11,7 +11,7 @@
 			wire([ 'polaris/context' ])
 			.then(function(context) {
 				this.context = context;
-			}.bind(this));
+			}.bind(this), this.handleError);
 		},
 
 		handleError : function(error) {
