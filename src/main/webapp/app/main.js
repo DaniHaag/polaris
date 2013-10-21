@@ -53,8 +53,7 @@ require.config({
 require([ 'bootstrap', 'polaris/Application', 'when', 'domReady' ],
 function (bootstrap, Application, when, domReady) {
     var app = new Application();
-    when(app.init())
-    .then(app.start.bind(app))
+    when(app.start())
     .then(function () {
     	console.info('polaris successfully started');
     }, function (error) {

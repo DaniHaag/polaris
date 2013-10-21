@@ -2,7 +2,7 @@
 
 	themeDomController : {
 		create : {
-			module : 'polaris/mvc/controller/DomController',
+			module : './mvc/controller/DomController',
 			args : [ '.app', {
 				'.globalNavigation' : {
 					$ref : 'globalNavigationComponent'
@@ -17,19 +17,19 @@
 
 	globalNavigationComponent : {
 		create : {
-			module : './header/globalnavigation/Component'
+			module : './modules/header/globalnavigation/Component'
 		}
 	},
 
 	disclaimerComponent : {
 		create : {
-			module : './footer/disclaimers/Component'
+			module : './modules/footer/disclaimers/Component'
 		}
 	},
 
 	themeUrlController : {
 		create : {
-			module : 'polaris/mvc/controller/UrlController',
+			module : './mvc/controller/UrlController',
 			args : [ '.content', {
 				$ref : 'routingService'
 			}, {
@@ -46,8 +46,9 @@
 
 	pageComponent : {
 		create : {
-			module : './content/page/Component'
+			module : './modules/content/page/Component'
 		}
 	}
+
 
 });

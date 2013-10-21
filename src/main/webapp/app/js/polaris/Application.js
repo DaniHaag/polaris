@@ -1,40 +1,28 @@
 ﻿define([ 'wire', 'when', 'when/sequence' ], function(wire, when, sequence) {
 
 	function Application(options) {
-		this.subModuleContexts = {};
 	}
 
 	Application.prototype = {
-		
-		context : null,
-		
-		subModuleContexts : null,
 
-		init : function() {
-			return wire('polaris/context')
+		context : null,
+
+		start : function() {
+			wire([ 'polaris/context', 'polaris/modules/context' ])
 			.then(function(context) {
 				this.context = context;
 			}.bind(this));
 		},
 
-		start : function() {
-			return this.loadModule('polaris/modules/context');
-		},
-
-		stop : function() {
-		},
-		
-		loadModule : function(location) {
-			return this.context.wire(location)
-			.then(function(context) {
-				this.subModuleContexts[ 'location' ] = context;
-			}.bind(this));
-		},
-
-		unloadModules : function(location) {
-			return this.subModuleContexts[ 'location' ].destroy();
+		handleError : function(error) {
+			if (error != null && error.message) {
+				console.error(error.message);
+			}
+			else {
+				console.error(error);
+			}
 		}
-		
+
 	};
 
 	return Application;
