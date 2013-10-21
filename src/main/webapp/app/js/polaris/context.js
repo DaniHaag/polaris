@@ -9,15 +9,35 @@
 		}
 	},
 
+	settingsClient : {
+		rest : [ {
+			module : 'rest/interceptor/errorCode',
+			config : {
+				code : '400'
+			}
+		}, {
+			module : 'rest/interceptor/mime',
+			config : {
+				mime : 'application/x-www-form-urlencoded',
+				accept : "application/json"
+			}
+		}, {
+			module : 'rest/interceptor/pathPrefix',
+			config : {
+				prefix : 'api/v2/navigation'
+			}
+		}, {
+			module : 'rest/interceptor/entity'
+		} ]
+	},
+
 	settingsStore : {
 		create : {
-			module : 'dojo/store/Memory',
+			module : 'rest/dojo/RestStore',
 			args : [ {
-				id : 1,
-				name : 'one'
-			}, {
-				id : 2,
-				name : 'two'
+				client : {
+					$ref : 'settingsClient'
+				}
 			} ]
 		}
 	},
@@ -27,7 +47,7 @@
 			module : './core/route/RoutingService'
 		}
 	},
-	
+
 	themeDomController : {
 		create : {
 			module : './mvc/controller/DomController',
