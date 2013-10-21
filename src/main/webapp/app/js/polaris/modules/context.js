@@ -3,7 +3,7 @@
 	themeDomController : {
 		create : {
 			module : 'polaris/mvc/controller/DomController',
-			args : [ '.theme', {
+			args : [ '.app', {
 				'.globalNavigation' : {
 					$ref : 'globalNavigationComponent'
 				},
@@ -33,6 +33,9 @@
 			args : [ '.content', {
 				$ref : 'routingService'
 			}, {
+				'/' : {
+					$ref : 'pageComponent'
+				},
 				'main/home' : {
 					$ref : 'pageComponent'
 				}

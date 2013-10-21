@@ -18,7 +18,7 @@
 		},
 
 		start : function() {
-			return this.loadModule('polaris/modules/theme/context');
+			return this.loadModule('polaris/modules/context');
 		},
 
 		stop : function() {
