@@ -33,25 +33,25 @@
 			module : './mvc/controller/DomController',
 			args : [ '.app', {
 				'.globalNavigation' : {
-					$ref : 'globalNavigationModule'
+					$ref : 'globalNavigationBundle'
 				},
 				'.disclaimers' : {
-					$ref : 'disclaimerModule'
+					$ref : 'disclaimerBundle'
 				}
 			} ]
 		},
 		ready : 'start'
 	},
 
-	globalNavigationModule : {
+	globalNavigationBundle : {
 		create : {
-			module : './modules/header/globalnavigation/Module'
+			module : './bundles/header/globalnavigation/Bundle'
 		}
 	},
 
-	disclaimerModule : {
+	disclaimerBundle : {
 		create : {
-			module : './modules/footer/disclaimers/Module'
+			module : './bundles/footer/disclaimers/Bundle'
 		}
 	},
 
@@ -62,19 +62,19 @@
 				$ref : 'routingService'
 			}, {
 				'/' : {
-					$ref : 'pageModule'
+					$ref : 'pageBundle'
 				},
 				'main/home' : {
-					$ref : 'pageModule'
+					$ref : 'pageBundle'
 				}
 			} ]
 		},
 		ready : 'start'
 	},
 
-	pageModule : {
+	pageBundle : {
 		create : {
-			module : './modules/content/page/Module'
+			module : './bundles/content/page/Bundle'
 		}
 	}
 
