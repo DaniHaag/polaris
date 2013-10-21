@@ -1,15 +1,8 @@
-define([ 'router', 'history' ], function(Router, History) {
+define([ 'hasher', 'crossroads' ], function(hasher, crossroads) {
 
-	function RoutingService(routes, handlers) {
-		this.router = new Router();
-		this.router.map(function(match) {
-			for ( var route in routes) {
-				match(route).to(routes[route]);
-			}
-		});
-		this.router.getHandler = function(name) {
-			return handlers[name];
-		};
+	function RoutingService() {
+		this.router = crossroads.create();
+		this.router.normalizeFn = crossroads.NORM_AS_OBJECT;
 	}
 
 	RoutingService.prototype = {
@@ -17,31 +10,23 @@ define([ 'router', 'history' ], function(Router, History) {
 		router : null,
 
 		init : function() {
-			this.router.init();
-			History.Adapter.bind(window, 'statechange', function() {
-				var state = History.getState();
-				this.router.handleURL(state.url);
-			});
-			this.router.updateURL = function(url) {
-				History.pushState(null, null, url);
-			};
+			var parseHash = function(newHash, oldHash) {
+				this.router.parse(newHash);
+			}.bind(this);
+			hasher.initialized.add(parseHash);
+			hasher.changed.add(parseHash);
+
+			if (!hasher.isActive()) {
+				hasher.init();
+			}
 		},
 
-		startRouting : function() {
-			var state = History.getState();
-			return this.transitionTo(state.url);
+		addRoute : function(pattern, handler) {
+			this.router.addRoute(pattern, handler);
 		},
 
-		transitionTo : function(name) {
-			this.router.transitionTo.apply(this.router, arguments);
-		},
-
-		hasRoute : function(route) {
-			return this.router.hasRoute(route);
-		},
-
-		reset : function() {
-			this.router.reset();
+		routeTo : function(path) {
+			hasher.setHash(path);
 		}
 
 	};
