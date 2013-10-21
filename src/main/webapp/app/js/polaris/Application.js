@@ -8,7 +8,7 @@
 		context : null,
 
 		start : function() {
-			wire([ 'polaris/context', 'polaris/modules/context' ])
+			wire([ 'polaris/context' ])
 			.then(function(context) {
 				this.context = context;
 			}.bind(this));
