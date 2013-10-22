@@ -1,0 +1,7 @@
+{
+   "id":"main.home",
+   "type":"page",
+   "label":"Home",
+   "disabled":"false",
+   "active":"false"
+}

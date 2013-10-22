@@ -6,11 +6,17 @@
 			args : [ {
 				$ref : 'settingsStore'
 			} ]
-		}
+		},
+		init : 'init'
 	},
 
 	settingsClient : {
 		rest : [ {
+			module : 'rest/interceptor/defaultRequest',
+			config : {
+				path : 'rest/api/sites/main/settings/list'
+			}
+		}, {
 			module : 'rest/interceptor/errorCode',
 			config : {
 				code : '400'
@@ -20,11 +26,6 @@
 			config : {
 				mime : 'application/x-www-form-urlencoded',
 				accept : "application/json"
-			}
-		}, {
-			module : 'rest/interceptor/pathPrefix',
-			config : {
-				prefix : 'api/v2/navigation'
 			}
 		}, {
 			module : 'rest/interceptor/entity'
@@ -96,6 +97,10 @@
 		create : {
 			module : './bundles/content/page/Bundle'
 		}
-	}
+	},
+
+	plugins : [ {
+		module : 'rest/wire'
+	} ]
 
 });
