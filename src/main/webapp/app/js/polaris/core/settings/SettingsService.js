@@ -22,19 +22,23 @@ define([ 'when', 'dojo/store/Memory', 'dojo/store/Observable' ], function(when, 
 			}.bind(this));
 		},
 
-		getProperty : function(name) {
-			return when(this.localStore.get(name));
+		getProperty : function(id) {
+			return when(this.localStore.get(id));
 		},
 
-		setProperty : function(name, value) {
+		setProperty : function(id, name) {
 			return when(this.localStore.put({
-				id : name,
-				name : value
+				id : id,
+				name : name
 			}));
 		},
 
-		removeProperty : function(name) {
-			return when(this.localStore.remove(name));
+		removeProperty : function(id) {
+			return when(this.localStore.remove(id));
+		},
+
+		getProperties : function(id, options) {
+			return this.store.query();
 		},
 
 		addListener : function(listener) {

@@ -16,10 +16,10 @@
 
 		handleError : function(error) {
 			if (error != null && error.message) {
-				console.error(error.message);
+				console.error('an error occured:' + error.message);
 			}
 			else {
-				console.error(error);
+				console.error('an error occured:' + error);
 			}
 		}
 
