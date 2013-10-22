@@ -40,7 +40,8 @@ define([ 'hasher', 'crossroads', 'when', 'when/pipeline' ], function(hasher, cro
 				if (options && options.after) {
 					promises.push(options.after);
 				}
-				pipeline(promises, id).then(function() {
+				pipeline(promises, id)
+				.then(function() {
 					this.deferred.resolve();
 				}.bind(this), this.handleError);
 			};
@@ -52,7 +53,7 @@ define([ 'hasher', 'crossroads', 'when', 'when/pipeline' ], function(hasher, cro
 		},
 
 		handleError : function(error) {
-			if ("cancel" != "error") {
+			if ('cancel' != error) {
 				if (error != null && error.message) {
 					console.error('an error occured:' + error.message);
 				}
