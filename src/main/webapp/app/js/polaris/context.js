@@ -2,7 +2,7 @@
 
 	settingsService : {
 		create : {
-			module : './core/property/PropertyService',
+			module : './core/settings/SettingsService',
 			args : [ {
 				$ref : 'settingsStore'
 			} ]
