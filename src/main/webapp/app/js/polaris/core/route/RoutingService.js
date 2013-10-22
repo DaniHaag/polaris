@@ -1,13 +1,18 @@
-define([ 'hasher', 'crossroads' ], function(hasher, crossroads) {
+define([ 'hasher', 'crossroads', 'when', 'when/pipeline' ], function(hasher, crossroads, when, pipeline) {
 
 	function RoutingService() {
 		this.router = crossroads.create();
 		this.router.normalizeFn = crossroads.NORM_AS_OBJECT;
+		this.handlers = {};
 	}
 
 	RoutingService.prototype = {
 
 		router : null,
+
+		handlers : null,
+
+		deferred : null,
 
 		init : function() {
 			var parseHash = function(newHash, oldHash) {
@@ -21,8 +26,27 @@ define([ 'hasher', 'crossroads' ], function(hasher, crossroads) {
 			}
 		},
 
-		addRoute : function(pattern, handler) {
-			this.router.addRoute(pattern, handler);
+		addRoute : function(pattern, handler, options) {
+			var handlers = function(id) {
+				if (this.deferred != null) {
+					this.deferred.reject('cancel');
+				}
+				this.deferred = when.defer();
+				var promises = [];
+				if (options && options.before) {
+					promises.push(options.before);
+				}
+				promises.push(handler);
+				if (options && options.after) {
+					promises.push(options.after);
+				}
+				pipeline(promises, id).then(function() {
+					this.deferred.resolve();
+				}.bind(this), function(error) {
+					this.deferred.reject(error);
+				}.bind(this));
+			};
+			this.router.addRoute(pattern, handlers);
 		},
 
 		routeTo : function(path) {
