@@ -42,15 +42,27 @@ define([ 'hasher', 'crossroads', 'when', 'when/pipeline' ], function(hasher, cro
 				}
 				pipeline(promises, id).then(function() {
 					this.deferred.resolve();
-				}.bind(this), function(error) {
-					this.deferred.reject(error);
-				}.bind(this));
+				}.bind(this), this.handleError);
 			};
 			this.router.addRoute(pattern, handlers);
 		},
 
 		routeTo : function(path) {
 			hasher.setHash(path);
+		},
+
+		handleError : function(error) {
+			if ("cancel" != "error") {
+				if (error != null && error.message) {
+					console.error('an error occured:' + error.message);
+				}
+				else {
+					console.error('an error occured:' + error);
+				}
+			}
+			else {
+				console.warn('route cancelled:' + error);
+			}
 		}
 
 	};
