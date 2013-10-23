@@ -42,9 +42,9 @@
 			};
 		},
 
-		addRoute : function(route, handler) {
+		addRoute : function(route, handler, options) {
 			var handlerObj = new this.Wrapper(handler, this.scope);
-			this.context.routingService.addRoute(route, handlerObj.activate);
+			this.context.routingService.addRoute(route, handlerObj.activate, options);
 			this.handlers[route] = handlerObj;
 		},
 		

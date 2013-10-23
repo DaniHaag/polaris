@@ -54,9 +54,9 @@
 
 	navigationClient : {
 		rest : [ {
-			module : 'rest/interceptor/defaultRequest',
+			module : 'rest/interceptor/pathPrefix',
 			config : {
-				path : 'rest/api/sites/main/navigation/list'
+				prefix : 'rest/api/sites/main/navigation'
 			}
 		}, {
 			module : 'rest/interceptor/errorCode',

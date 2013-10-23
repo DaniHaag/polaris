@@ -27,25 +27,25 @@ define([ 'hasher', 'crossroads', 'when', 'when/pipeline' ], function(hasher, cro
 		},
 
 		addRoute : function(pattern, handler, options) {
-			var handlers = function(id) {
+			var promises = [];
+			if (options && options.before) {
+				promises.push(options.before);
+			}
+			promises.push(handler);
+			if (options && options.after) {
+				promises.push(options.after);
+			}
+			var asyncHandler = function(id) {
 				if (this.deferred != null) {
 					this.deferred.reject('cancel');
 				}
 				this.deferred = when.defer();
-				var promises = [];
-				if (options && options.before) {
-					promises.push(options.before);
-				}
-				promises.push(handler);
-				if (options && options.after) {
-					promises.push(options.after);
-				}
 				pipeline(promises, id)
 				.then(function() {
 					this.deferred.resolve();
 				}.bind(this), this.handleError);
 			};
-			this.router.addRoute(pattern, handlers);
+			this.router.addRoute(pattern, asyncHandler);
 		},
 
 		routeTo : function(route) {

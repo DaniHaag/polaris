@@ -43,11 +43,17 @@ function(require, wire, when, DomController, GlobalNavigationBundle, DisclaimerB
 				this.context.navigationService.getNodes()
 				.then(function(nodesJson) {
 					var nodes = JSON.parse(nodesJson);
+					var routeOptions = {
+						before : function(route) {
+							var nodeId = route.request_.replace(/\//g, '.');
+							return this.context.navigationService.getNode(nodeId);
+						}.bind(this)
+					};
 					for(var i = 0; i < nodes.length; i++) {
 						var node = nodes[i];
 						switch (node.type) {
 							case 'page':
-								urlController.addRoute(node.route, pageBundle);
+								urlController.addRoute(node.route, pageBundle, routeOptions);
 								break;
 							case 'external':
 								urlController.addRoute(node.route, externalBundle);

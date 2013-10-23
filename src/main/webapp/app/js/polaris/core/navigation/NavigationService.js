@@ -9,11 +9,11 @@ define([ 'when' ], function(when) {
 		remoteStore : null,
 
 		getNode : function(id, options) {
-			return this.remoteStore.get(id);
+			return this.remoteStore.get('get/' + id);
 		},
 
 		getNodes : function(options) {
-			return this.remoteStore.query();
+			return this.remoteStore.get('list');
 		}
 
 	};
