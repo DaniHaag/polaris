@@ -1,10 +1,13 @@
 define([ 'knockout', 'polaris/mvc/view/ViewTemplate', './ViewModel', 'text!./template/View.html'], function(ko, ViewTemplate, ViewModel, template) {
 
-	function Component() {
+	function Bundle(context) {
+		this.context = context;
 	}
 
-	Component.prototype = {
+	Bundle.prototype = {
 		
+		context : null,
+			
 		panel : null,
 
 		vm : null,
@@ -25,6 +28,6 @@ define([ 'knockout', 'polaris/mvc/view/ViewTemplate', './ViewModel', 'text!./tem
 		}
 	};
 
-	return Component;
+	return Bundle;
 
 });

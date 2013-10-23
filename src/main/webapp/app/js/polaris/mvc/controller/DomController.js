@@ -1,20 +1,29 @@
 define([ 'jquery', 'underscore' ], function ($, _) {
 
-    function DomController(scope, handlers, options) {
+    function DomController(scope, context, options) {
         this.scope = $(scope);
-        this.handlers = handlers;
+        this.context = context;
+        this.handlers = {};
     }
 
     DomController.prototype = {
 
+    	context : null,
+    		
         scope : null,
 
         routes: null,
 
         handlers: null,
 
-        addRoutes: function (newHandlers) {
-            _.extend(this.handlers, newHandlers);
+        addRoute: function (route, handler) {
+        	this.handlers[route] = handler;
+        },
+        
+        addRoutes: function (handlers) {
+            for(var route in handlers) {
+            	this.handlers[route] = handlers[route];
+            }
         },
 
         start: function () {

@@ -1,18 +1,14 @@
 ﻿define([], function() {
 
-	function UrlController(scope, routingService, handlers) {
+	function UrlController(scope, context) {
 		this.scope = $(scope);
-		
-		this.allHandlers = {};
-		
-		this.routingService = routingService;
-		
-		this.addRoutes(handlers);
+		this.context = context;
+		this.handlers = {};
 
 		this.scope.bind('DEACTIVATE_HANDLERS', function() {
-			for (handler in this.allHandlers) {
-				if (this.allHandlers.hasOwnProperty(handler)) {
-					this.allHandlers[handler].deactivate();
+			for (var handler in this.handlers) {
+				if (this.handlers.hasOwnProperty(handler)) {
+					this.handlers[handler].deactivate();
 				}
 			}
 		});
@@ -20,9 +16,9 @@
 
 	UrlController.prototype = {
 		
-		allHandlers : null,
-		
-		routingService : null,
+		context : null,
+			
+		handlers : null,
 
 		Wrapper : function(handler, scope) {
 
@@ -43,19 +39,25 @@
 				}
 			};
 		},
-	
+
+		addRoute : function(route, handler) {
+			var handlerObj = new this.Wrapper(handler, this.scope);
+			this.context.routingService.addRoute(route, handlerObj.activate);
+			this.handlers[route] = handlerObj;
+		},
+		
 		addRoutes : function(handlers) {
-			for (path in handlers) {
-				if (handlers.hasOwnProperty(path)) {
-					var handlerObj = new this.Wrapper(handlers[path], this.scope);
-					this.routingService.addRoute(path, handlerObj.activate);
-					this.allHandlers[path] = handlerObj;
+			for (var route in handlers) {
+				if (handlers.hasOwnProperty(route)) {
+					var handlerObj = new this.Wrapper(handlers[route], this.scope);
+					this.routingService.addRoute(route, handlerObj.activate);
+					this.handlers[route] = handlerObj;
 				}
 			}
 		},
 
 		start : function() {
-			this.routingService.init();
+			this.context.routingService.init();
 		}
 
 	};
