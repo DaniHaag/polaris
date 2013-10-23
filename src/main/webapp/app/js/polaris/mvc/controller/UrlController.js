@@ -5,15 +5,17 @@
 		this.context = context;
 		this.handlers = {};
 
-		this.scope.bind('DEACTIVATE_HANDLERS', function() {
+		this.scope.bind(UrlController.DEACTIVATE_HANDLERS, function() {
 			for (var handler in this.handlers) {
 				if (this.handlers.hasOwnProperty(handler)) {
 					this.handlers[handler].deactivate();
 				}
 			}
-		});
+		}.bind(this));
 	}
 
+	UrlController.DEACTIVATE_HANDLERS = 'DEACTIVATE_HANDLERS';
+	
 	UrlController.prototype = {
 		
 		context : null,
@@ -29,7 +31,7 @@
 			this.scope = scope;
 
 			this.activate = function(vals) {
-				scope.trigger('DEACTIVATE_HANDLERS');
+				scope.trigger(UrlController.DEACTIVATE_HANDLERS);
 				selfWrapper.handler.activate(this.scope, vals);
 			}.bind(this);
 

@@ -6,6 +6,8 @@ define([ 'jquery', 'underscore' ], function ($, _) {
         this.handlers = {};
     }
 
+    DomController.DEACTIVATE_HANDLERS = 'DEACTIVATE_HANDLERS';
+    
     DomController.prototype = {
 
     	context : null,
@@ -29,17 +31,19 @@ define([ 'jquery', 'underscore' ], function ($, _) {
         start: function () {
             for (path in this.handlers) {
                 if (this.handlers.hasOwnProperty(path)) {
-                    this.scope.find(path).each(function (index, parent) {
+                    this.scope.find(path)
+                    .each(function (index, parent) {
                         var paramString = $(this).attr("params");
                         var params = paramString ? eval("({" + paramString + "})") : {};
 
-                        $(this).trigger('DEACTIVATE_HANDLERS');
+                        $(this).trigger(DomController.DEACTIVATE_HANDLERS);
 
-                        $(this).bind('DEACTIVATE_HANDLERS', function () {
+                        $(this).bind(DomController.DEACTIVATE_HANDLERS, function () {
                             (function (handler) {
                                 handler.deactivate();
                             })(this.handlers[path]);
-                        });
+                        }.bind(this));
+                        
                         this.handlers[path].activate($(parent), params);
                     }.bind(this));
                 }
