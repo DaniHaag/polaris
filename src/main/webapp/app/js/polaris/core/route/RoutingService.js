@@ -48,8 +48,12 @@ define([ 'hasher', 'crossroads', 'when', 'when/pipeline' ], function(hasher, cro
 			this.router.addRoute(pattern, handlers);
 		},
 
-		routeTo : function(path) {
-			hasher.setHash(path);
+		routeTo : function(route) {
+			hasher.setHash(route);
+		},
+
+		transitionTo : function(route) {
+			hasher.setHash(route);
 		},
 
 		handleError : function(error) {
