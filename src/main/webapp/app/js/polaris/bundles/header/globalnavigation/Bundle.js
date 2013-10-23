@@ -11,9 +11,7 @@ define([ 'knockout', 'polaris/mvc/view/View', './ViewModel', 'text!./template/Vi
 		view : null,
 
 		vm : null,
-
-		navigationService : null,
-		
+	
 		activate : function(parent, params) {
 			if (!this.view) {
 				this.view = new View(parent, template, null);
