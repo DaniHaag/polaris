@@ -1,4 +1,4 @@
-define([ 'knockout', 'polaris/mvc/view/ViewTemplate', './ViewModel', 'text!./template/View.html'], function(ko, ViewTemplate, ViewModel, template) {
+define([ 'knockout', 'polaris/mvc/view/View', './ViewModel', 'text!./template/View.html'], function(ko, View, ViewModel, template) {
 
 	function Bundle(context) {
 		this.context = context;
@@ -8,22 +8,22 @@ define([ 'knockout', 'polaris/mvc/view/ViewTemplate', './ViewModel', 'text!./tem
 		
 		context : null,
 			
-		panel : null,
+		view : null,
 
 		vm : null,
 
 		activate : function(parent, params) {
-			if (!this.panel) {
-				this.panel = new ViewTemplate(parent, template, null);
+			if (!this.view) {
+				this.view = new View(parent, template, null);
 				this.vm = new ViewModel();
-				ko.applyBindings(this.vm , this.panel.getDomElement());
+				ko.applyBindings(this.vm , this.view.getDomElement());
 			}
-			this.panel.show();
+			this.view.show();
 		},
 
 		deactivate : function() {
-			if (this.panel) {
-				this.panel.hide();
+			if (this.view) {
+				this.view.hide();
 			}
 		}
 	};
