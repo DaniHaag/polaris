@@ -12,10 +12,10 @@ define([ 'knockout', 'polaris/mvc/view/ViewTemplate', './ViewModel', 'text!./tem
 
 		vm : null,
 
-		activate : function(parent, params) {
+		activate : function(parent, model) {
 			if (!this.panel) {
 				this.panel = new ViewTemplate(parent, template, null);
-				this.vm = new ViewModel();
+				this.vm = new ViewModel(JSON.parse(model), this.context);
 				ko.applyBindings(this.vm , this.panel.getDomElement());
 			}
 			this.panel.show();

@@ -1,6 +1,8 @@
 {
-	"main/home" : "page",
-	"main/content/external" : "external",
-	"main/content/modal" : "modal",
-	"main/index" : "index"
-}
+      "id":"main.menu.page",
+      "type":"page",
+      "label":"Page",
+      "disabled":"false",
+      "active":"false",
+      "route":"main/menu/page"
+   }

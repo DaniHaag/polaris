@@ -1,7 +1,8 @@
 {
-   "id":"main.home",
-   "type":"page",
-   "label":"Home",
-   "disabled":"false",
-   "active":"false"
+    "id":"main.home",
+    "type":"page",
+    "label":"Home",
+    "disabled":"false",
+    "active":"false",
+    "route":"main/home"
 }
