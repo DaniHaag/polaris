@@ -1,5 +1,6 @@
 package ch.esgroup.polaris.navigation.rest;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,10 +15,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import ch.esgroup.polaris.navigation.domain.Node;
-import ch.esgroup.polaris.navigation.domain.Nodes;
 import ch.esgroup.polaris.navigation.service.NavigationService;
 
-@Path("/navigation")
+@Path("/nodes/")
 @Produces("application/json")
 public class NavigationRestService implements NavigationService {
 
@@ -32,24 +32,22 @@ public class NavigationRestService implements NavigationService {
 		NODE_MAP.put("main.menu.external", new Node("main.menu.external", "external", "External", false, false, false, "external"));
 		NODE_MAP.put("main.menu.modal", new Node("main.menu.modal", "modal", "Modal", false, false, false, "modal"));
 		NODE_MAP.put("main.menu.disabled", new Node("main.menu.disabled", "page", "Disabled", false, true, false, "disabled"));
-		NODE_MAP.put("main.menu.hidden", new Node("main.menu.hidden", "Hidden", "Disabled", false, false, false, "disabled"));
+		NODE_MAP.put("main.menu.hidden", new Node("main.menu.hidden", "Hidden", "Disabled", false, false, false, "hidden"));
 		NODE_MAP.put("main.index", new Node("main.index", "index", "Index", true, false, false, "index"));
 	}
 
 	@GET
-	@Path("/get/{id}")
+	@Path("{id}")
 	public Node get(@PathParam("id") Long id) {
 		return NODE_MAP.get(id);
 	}
 
 	@GET
-	@Path("/get/")
-	public Nodes getAll() {
-		return new Nodes(NODE_MAP.values());
+	public Collection<Node> getAll() {
+		return NODE_MAP.values();
 	}
 
 	@POST
-	@Path("/create/")
 	@Consumes("application/json")
 	public Response post(Node node) {
 		System.out.println("Adding :" + node);
@@ -59,7 +57,6 @@ public class NavigationRestService implements NavigationService {
 	}
 
 	@PUT
-	@Path("/update/")
 	@Consumes("application/json")
 	public Response put(Node node) {
 		System.out.println("Updating :" + node);
@@ -68,7 +65,6 @@ public class NavigationRestService implements NavigationService {
 	}
 
 	@DELETE
-	@Path("/delete/")
 	public Response delete(@PathParam("id") Long id) {
 		Node e = NODE_MAP.remove(id);
 		System.out.println("Deleted :" + e);

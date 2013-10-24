@@ -1,15 +1,16 @@
 package ch.esgroup.polaris.navigation.service;
 
+import java.util.Collection;
+
 import javax.ws.rs.core.Response;
 
 import ch.esgroup.polaris.navigation.domain.Node;
-import ch.esgroup.polaris.navigation.domain.Nodes;
 
 public interface NavigationService {
 
 	Node get(Long id);
 
-	Nodes getAll();
+	Collection<Node> getAll();
 
 	Response post(Node employee);
 

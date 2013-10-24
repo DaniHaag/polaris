@@ -4,8 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
-@XmlType(name = "NodeType", namespace = "ch.esgroup.polaris.navigation.node")
-@XmlRootElement(name = "Node", namespace = "ch.esgroup.polaris.navigation.node")
+@XmlRootElement(name = "node")
 public class Node implements Serializable {
 
 	private String id;
@@ -20,19 +19,19 @@ public class Node implements Serializable {
 
 	private boolean active;
 
-	private String route;
+	private String bookmark;
 
 	public Node() {
 	}
 
-	public Node(String id, String type, String label, boolean hidden, boolean disabled, boolean active, String route) {
+	public Node(String id, String type, String label, boolean hidden, boolean disabled, boolean active, String bookmark) {
 		this.id = id;
 		this.type = type;
 		this.label = label;
 		this.hidden = hidden;
 		this.disabled = disabled;
 		this.active = active;
-		this.route = route;
+		this.bookmark = bookmark;
 	}
 
 	public String getId() {
@@ -75,17 +74,17 @@ public class Node implements Serializable {
 		this.active = active;
 	}
 
-	public String getRoute() {
-		return route;
+	public String getBookmark() {
+		return bookmark;
 	}
 
-	public void setRoute(String route) {
-		this.route = route;
+	public void setBookmark(String bookmark) {
+		this.bookmark = bookmark;
 	}
 
 	@Override
 	public String toString() {
-		return "Node{" + "id=" + id + ", type='" + type + '\'' + ", label='" + label + '\'' + ", hidden='" + hidden + '\'' + ", disabled='" + disabled + '\'' + ", active='" + active + '\'' + ", label='" + label + '\'' + '}';
+		return "Node{" + "id=" + id + ", type='" + type + '\'' + ", label='" + label + '\'' + ", hidden='" + hidden + '\'' + ", disabled='" + disabled + '\'' + ", active='" + active + '\'' + ", bookmark='" + bookmark + '\'' + '}';
 	}
 
 }

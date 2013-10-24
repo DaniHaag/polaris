@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:cxf="http://cxf.apache.org/core"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-              http://www.springframework.org/schema/beans/spring-beans.xsd 
-              http://cxf.apache.org/jaxrs 
-              http://cxf.apache.org/schemas/jaxrs.xsd 
-              http://cxf.apache.org/core 
-              http://cxf.apache.org/schemas/core.xsd">
-	<!-- do not use import statements if CXFServlet init parameters link to this beans.xml -->
-	<import resource="classpath:META-INF/cxf/cxf.xml" />
-	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:moap="http://goto/it-moap?attributes"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 
-	<jaxrs:server id="restServer" address="/rest/api">
+	<context:component-scan base-package="ch.esgroup.polaris" />
+
+	<bean id="navigationService" class="ch.esgroup.polaris.navigation.rest.NavigationRestService" />
+
+	<jaxrs:server id="polarisRestServices" address="/rest">
 		<jaxrs:serviceBeans>
 			<ref bean="navigationService" />
 		</jaxrs:serviceBeans>
-
 		<jaxrs:extensionMappings>
 			<entry key="xml" value="application/xml" />
 			<entry key="json" value="application/json" />
 		</jaxrs:extensionMappings>
-
-		<jaxrs:features>
-			<cxf:logging />
-		</jaxrs:features>
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
+		</jaxrs:providers>
 	</jaxrs:server>
 
-	<bean id="navigationService" class="ch.esgroup.polaris.navigation.rest.NavigationRestService" />
-
-</beans> 
+</beans>
