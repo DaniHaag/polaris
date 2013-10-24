@@ -24,8 +24,11 @@ public class SettingsServiceImpl implements SettingsService {
 	private static final Map<String, Setting> SETTING_MAP = new HashMap<String, Setting>();
 
 	static {
-		SETTING_MAP.put("main.home", new Setting("", ""));
-		SETTING_MAP.put("main.home", new Setting("", ""));
+		SETTING_MAP.put("major-version", new Setting("major-version", "0"));
+		SETTING_MAP.put("minor-version", new Setting("minor-version", "0"));
+		SETTING_MAP.put("patch-version", new Setting("patch-version", "1"));
+		SETTING_MAP.put("qualifier-version", new Setting("qualifier-version", "SNAPSHOT"));
+		SETTING_MAP.put("version", new Setting("version", "0.0.1-SNAPSHOT"));
 	}
 
 	@GET
