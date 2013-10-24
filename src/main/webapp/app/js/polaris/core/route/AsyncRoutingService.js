@@ -2,26 +2,20 @@ define([ 'router', 'history' ], function(Router, History) {
 
 	function RoutingService(routes, handlers) {
 		this.router = new Router();
-		this.router.map(function(match) {
-			for ( var route in routes) {
-				match(route).to(routes[route]);
-			}
-		});
-		this.router.getHandler = function(name) {
-			return handlers[name];
-		};
 	}
 
 	RoutingService.prototype = {
 
 		router : null,
-
-		init : function() {
-			this.router.init();
+		
+		init : function(routes, handler) {
+			this.router.map(routes);
+			this.router.getHandler = handler;
 			History.Adapter.bind(window, 'statechange', function() {
 				var state = History.getState();
 				this.router.handleURL(state.url);
 			});
+			
 			this.router.updateURL = function(url) {
 				History.pushState(null, null, url);
 			};

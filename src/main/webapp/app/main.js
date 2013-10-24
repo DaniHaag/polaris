@@ -18,7 +18,7 @@ require.config({
         hasher: 'lib/hasher/dist/js/hasher',
         crossroads: 'lib/crossroads/dist/crossroads',
         router: 'lib/router/dist/router.amd',
-        'route-recognizer': 'lib/route-recognizer/route-recognizer.amd',
+        'route-recognizer': 'lib/route-recognizer/dist/route-recognizer.amd',
         history: 'lib/history/scripts/bundled/html4+html5/native.history',
         knockout: 'lib/knockout/knockout-3.0.0rc.debug',
         // plugins

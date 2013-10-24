@@ -87,7 +87,7 @@
 
 	routingService : {
 		create : {
-			module : './core/route/RoutingService'
+			module : './core/route/AsyncRoutingService'
 		}
 	},
 
