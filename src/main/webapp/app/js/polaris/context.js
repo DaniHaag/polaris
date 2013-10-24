@@ -12,9 +12,9 @@
 
 	settingsClient : {
 		rest : [ {
-			module : 'rest/interceptor/defaultRequest',
+			module : 'rest/interceptor/pathPrefix',
 			config : {
-				path : 'api/rest/settings'
+				prefix : 'api/rest/settings/'
 			}
 		}, {
 			module : 'rest/interceptor/errorCode',
@@ -54,9 +54,9 @@
 
 	nodesClient : {
 		rest : [ {
-			module : 'rest/interceptor/defaultRequest',
+			module : 'rest/interceptor/pathPrefix',
 			config : {
-				path : 'api/rest/nodes'
+				prefix : 'api/rest/nodes/'
 			}
 		}, {
 			module : 'rest/interceptor/errorCode',
@@ -92,7 +92,7 @@
 	},
 
 	plugins : [ {
-		module : 'rest/wire'
+		module : 'rest/dojo/wire'
 	} ]
 
 });

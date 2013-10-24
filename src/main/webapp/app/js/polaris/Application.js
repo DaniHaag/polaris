@@ -42,33 +42,37 @@ function(require, wire, when, DomController, GlobalNavigationBundle, DisclaimerB
 				var indexBundle = new IndexBundle(this.context);
 				this.context.nodesService.getNodes()
 				.then(function(nodes) {
-					var routeOptions = {
-						before : function(route) {
-							var nodeId = route.request_.replace(/\//g, '.');
-							return this.context.nodesService.getNode(nodeId);
-						}.bind(this)
-					};
-					for(var i = 0; i < nodes.length; i++) {
-						var node = nodes[i];
-						switch (node.type) {
-							case 'page':
-								urlController.addRoute(node.bookmark, pageBundle, routeOptions);
-								break;
-							case 'external':
-								urlController.addRoute(node.bookmark, externalBundle);
-								break;
-							case 'modal':
-								urlController.addRoute(node.bookmark, modalBundle);
-								break;
-							case 'index':
-								urlController.addRoute(node.bookmark, indexBundle);
-								break;
-							default:
-								break;
+					try {
+						var routeOptions = {
+							before : function(route) {
+								return this.context.nodesService.getNode(route.request_);
+							}.bind(this)
+						};
+						for(var i = 0; i < nodes.length; i++) {
+							var node = nodes[i];
+							switch (node.type) {
+								case 'page':
+									urlController.addRoute(node.bookmark, pageBundle, routeOptions);
+									break;
+								case 'external':
+									urlController.addRoute(node.bookmark, externalBundle);
+									break;
+								case 'modal':
+									urlController.addRoute(node.bookmark, modalBundle);
+									break;
+								case 'index':
+									urlController.addRoute(node.bookmark, indexBundle);
+									break;
+								default:
+									break;
+							}
 						}
+						urlController.start();
+						deferred.resolve();
 					}
-					urlController.start();
-					deferred.resolve();
+					catch(error) {
+						deferred.reject(error);
+					}
 				}.bind(this), function(error) {
 					deferred.reject(error);
 				});
