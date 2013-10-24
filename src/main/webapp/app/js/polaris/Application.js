@@ -26,15 +26,28 @@ function(require, wire, when, DomController, GlobalNavigationBundle, DisclaimerB
 		},
 		
 		startControllers : function() {
+			return when(this.startDomController())
+			.then(this.startUrlController.bind(this));
+		},
+		
+		startDomController : function() {
 			var deferred = when.defer();
 			try {
-				// setup dom controller
 				var domController = new DomController('.app', this.context);
 				domController.addRoute('.globalNavigation', new GlobalNavigationBundle(this.context));
 				domController.addRoute('.disclaimers', new DisclaimerBundle(this.context));
 				domController.start();
-				
-				// setup url controller
+				deferred.resolve();
+			}
+			catch(error) {
+				deferred.reject(error);
+			}
+			return deferred.promise;
+		},
+		
+		startUrlController : function() {
+			var deferred = when.defer();
+			try {
 				var urlController = new UrlController('.content', this.context);
 				var pageBundle = new PageBundle(this.context);
 				var externalBundle = new ExternalBundle(this.context);
