@@ -2,7 +2,10 @@ package ch.esgroup.polaris.nodes.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @XmlRootElement(name = "node")
 public class Node implements Serializable {
@@ -21,10 +24,14 @@ public class Node implements Serializable {
 
 	private String bookmark;
 
+	private String layout;
+
+	private Collection<Link> links;
+
 	public Node() {
 	}
 
-	public Node(String id, String type, String label, boolean hidden, boolean disabled, boolean active, String bookmark) {
+	public Node(String id, String type, String label, boolean hidden, boolean disabled, boolean active, String bookmark, String layout) {
 		this.id = id;
 		this.type = type;
 		this.label = label;
@@ -32,6 +39,20 @@ public class Node implements Serializable {
 		this.disabled = disabled;
 		this.active = active;
 		this.bookmark = bookmark;
+		this.layout = layout;
+		this.links = new ArrayList<Link>();
+	}
+
+	public Node(String id, String type, String label, boolean hidden, boolean disabled, boolean active, String bookmark, String layout, Collection<Link> links) {
+		this.id = id;
+		this.type = type;
+		this.label = label;
+		this.hidden = hidden;
+		this.disabled = disabled;
+		this.active = active;
+		this.bookmark = bookmark;
+		this.layout = layout;
+		this.links = links;
 	}
 
 	public String getId() {
@@ -58,6 +79,14 @@ public class Node implements Serializable {
 		this.label = label;
 	}
 
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
 	public boolean isDisabled() {
 		return disabled;
 	}
@@ -82,9 +111,12 @@ public class Node implements Serializable {
 		this.bookmark = bookmark;
 	}
 
-	@Override
-	public String toString() {
-		return "{" + "id=" + id + ", type='" + type + '\'' + ", label='" + label + '\'' + ", hidden='" + hidden + '\'' + ", disabled='" + disabled + '\'' + ", active='" + active + '\'' + ", bookmark='" + bookmark + '\'' + '}';
+	public Collection<Link> getLinks() {
+		return links;
+	}
+
+	public void addLink(Link link) {
+		this.links.add(link);
 	}
 
 }

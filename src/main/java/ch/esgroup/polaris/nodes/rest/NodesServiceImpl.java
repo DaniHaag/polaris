@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import ch.esgroup.polaris.nodes.domain.Link;
 import ch.esgroup.polaris.nodes.domain.Node;
 import ch.esgroup.polaris.nodes.service.NodesService;
 
@@ -24,16 +25,23 @@ public class NodesServiceImpl implements NodesService {
 	private static final Map<String, Node> NODE_MAP = new HashMap<String, Node>();
 
 	static {
-		NODE_MAP.put("home", new Node("main.home", "page", "Home", false, false, false, "home"));
-		NODE_MAP.put("menu", new Node("main.home.menu", "label", "Menu", false, false, false, null));
-		NODE_MAP.put("page", new Node("main.menu.page", "page", "Page", false, false, false, "page"));
-		NODE_MAP.put("divider", new Node("main.menu.divider", "divider", null, false, false, false, null));
-		NODE_MAP.put("header", new Node("main.menu.header", "header", null, false, false, false, null));
-		NODE_MAP.put("external", new Node("main.menu.external", "external", "External", false, false, false, "external"));
-		NODE_MAP.put("modal", new Node("main.menu.modal", "modal", "Modal", false, false, false, "modal"));
-		NODE_MAP.put("disabled", new Node("main.menu.disabled", "page", "Disabled", false, true, false, "disabled"));
-		NODE_MAP.put("hidden", new Node("main.menu.hidden", "Hidden", "Disabled", false, false, false, "hidden"));
-		NODE_MAP.put("index", new Node("main.index", "index", "Index", true, false, false, "index"));
+		NODE_MAP.put("home", new Node("main.home", "page", "Home", false, false, false, "home", "default"));
+		NODE_MAP.get("home").addLink(new Link("default", "/welcome", null));
+		NODE_MAP.put("menu", new Node("main.home.menu", "label", "Menu", false, false, false, null, "default"));
+		NODE_MAP.put("page", new Node("main.menu.page", "page", "Page", false, false, false, "page", "default"));
+		NODE_MAP.get("page").addLink(new Link("default", "/welcome", null));
+		NODE_MAP.put("divider", new Node("main.menu.divider", "divider", null, false, false, false, null, "default"));
+		NODE_MAP.put("header", new Node("main.menu.header", "header", null, false, false, false, null, "default"));
+		NODE_MAP.put("external", new Node("main.menu.external", "external", "External", false, false, false, "external", "default"));
+		NODE_MAP.get("external").addLink(new Link("default", "/welcome", null));
+		NODE_MAP.put("modal", new Node("main.menu.modal", "modal", "Modal", false, false, false, "modal", "default"));
+		NODE_MAP.get("modal").addLink(new Link("default", "/welcome",null ));
+		NODE_MAP.put("disabled", new Node("main.menu.disabled", "page", "Disabled", false, true, false, "disabled", "default"));
+		NODE_MAP.get("disabled").addLink(new Link("default", "/welcome", null));
+		NODE_MAP.put("hidden", new Node("main.menu.hidden", "Hidden", "Disabled", false, false, false, "hidden", "default"));
+		NODE_MAP.get("hidden").addLink(new Link("default", "/welcome", null));
+		NODE_MAP.put("index", new Node("main.index", "index", "Index", true, false, false, "index", "default"));
+		NODE_MAP.get("index").addLink(new Link("default", "/welcome", null));
 	}
 
 	@GET
