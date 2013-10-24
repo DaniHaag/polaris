@@ -1,8 +1,0 @@
-{
-      "id":"main.menu.page",
-      "type":"page",
-      "label":"Page",
-      "disabled":"false",
-      "active":"false",
-      "route":"main/menu/page"
-   }

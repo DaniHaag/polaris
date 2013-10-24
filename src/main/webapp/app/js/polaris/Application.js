@@ -40,29 +40,28 @@ function(require, wire, when, DomController, GlobalNavigationBundle, DisclaimerB
 				var externalBundle = new ExternalBundle(this.context);
 				var modalBundle = new ModalBundle(this.context);
 				var indexBundle = new IndexBundle(this.context);
-				this.context.navigationService.getNodes()
-				.then(function(nodesJson) {
-					var nodes = JSON.parse(nodesJson);
+				this.context.nodesService.getNodes()
+				.then(function(nodes) {
 					var routeOptions = {
 						before : function(route) {
 							var nodeId = route.request_.replace(/\//g, '.');
-							return this.context.navigationService.getNode(nodeId);
+							return this.context.nodesService.getNode(nodeId);
 						}.bind(this)
 					};
 					for(var i = 0; i < nodes.length; i++) {
 						var node = nodes[i];
 						switch (node.type) {
 							case 'page':
-								urlController.addRoute(node.route, pageBundle, routeOptions);
+								urlController.addRoute(node.bookmark, pageBundle, routeOptions);
 								break;
 							case 'external':
-								urlController.addRoute(node.route, externalBundle);
+								urlController.addRoute(node.bookmark, externalBundle);
 								break;
 							case 'modal':
-								urlController.addRoute(node.route, modalBundle);
+								urlController.addRoute(node.bookmark, modalBundle);
 								break;
 							case 'index':
-								urlController.addRoute(node.route, indexBundle);
+								urlController.addRoute(node.bookmark, indexBundle);
 								break;
 							default:
 								break;

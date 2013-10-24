@@ -15,7 +15,7 @@ define([ 'knockout', 'polaris/mvc/view/View', './ViewModel', 'text!./template/Vi
 		activate : function(parent, model) {
 			if (!this.view) {
 				this.view = new View(parent, template, null);
-				this.vm = new ViewModel(JSON.parse(model), this.context);
+				this.vm = new ViewModel(model, this.context);
 				ko.applyBindings(this.vm , this.view.getDomElement());
 			}
 			this.view.show();

@@ -14,7 +14,7 @@
 		rest : [ {
 			module : 'rest/interceptor/defaultRequest',
 			config : {
-				path : 'rest/api/sites/main/settings/list'
+				path : 'api/rest/settings'
 			}
 		}, {
 			module : 'rest/interceptor/errorCode',
@@ -24,8 +24,8 @@
 		}, {
 			module : 'rest/interceptor/mime',
 			config : {
-				mime : 'application/x-www-form-urlencoded',
-				accept : "application/json"
+				mime : 'application/json',
+				accept : 'application/json'
 			}
 		}, {
 			module : 'rest/interceptor/entity'
@@ -43,20 +43,20 @@
 		}
 	},
 
-	navigationService : {
+	nodesService : {
 		create : {
-			module : './core/navigation/NavigationService',
+			module : './core/nodes/NodesService',
 			args : [ {
-				$ref : 'navigationStore'
+				$ref : 'nodesStore'
 			} ]
 		}
 	},
 
-	navigationClient : {
+	nodesClient : {
 		rest : [ {
-			module : 'rest/interceptor/pathPrefix',
+			module : 'rest/interceptor/defaultRequest',
 			config : {
-				prefix : 'rest/api/sites/main/navigation'
+				path : 'api/rest/nodes'
 			}
 		}, {
 			module : 'rest/interceptor/errorCode',
@@ -66,20 +66,20 @@
 		}, {
 			module : 'rest/interceptor/mime',
 			config : {
-				mime : 'application/x-www-form-urlencoded',
-				accept : "application/json"
+				mime : 'application/json',
+				accept : 'application/json'
 			}
 		}, {
 			module : 'rest/interceptor/entity'
 		} ]
 	},
 
-	navigationStore : {
+	nodesStore : {
 		create : {
 			module : 'rest/dojo/RestStore',
 			args : [ {
 				client : {
-					$ref : 'navigationClient'
+					$ref : 'nodesClient'
 				}
 			} ]
 		}

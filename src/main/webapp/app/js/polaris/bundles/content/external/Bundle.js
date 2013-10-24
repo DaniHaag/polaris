@@ -13,7 +13,7 @@ define([], function() {
 		vm : null,
 
 		activate : function(parent, params) {
-			this.context.navigationService.getNode()
+			this.context.nodesService.getNode()
 			.then(function(node) {
 				alert(node);
 			});
