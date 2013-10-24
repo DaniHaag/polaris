@@ -1,4 +1,4 @@
-package ch.esgroup.polaris.navigation.domain;
+package ch.esgroup.polaris.nodes.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;

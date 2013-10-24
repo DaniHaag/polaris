@@ -1,4 +1,4 @@
-package ch.esgroup.polaris.navigation.rest;
+package ch.esgroup.polaris.nodes.rest;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,12 +14,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import ch.esgroup.polaris.navigation.domain.Node;
-import ch.esgroup.polaris.navigation.service.NavigationService;
+import ch.esgroup.polaris.nodes.domain.Node;
+import ch.esgroup.polaris.nodes.service.NodesService;
 
 @Path("/nodes/")
 @Produces("application/json")
-public class NavigationServiceImpl implements NavigationService {
+public class NodesServiceImpl implements NodesService {
 
 	private static final Map<String, Node> NODE_MAP = new HashMap<String, Node>();
 

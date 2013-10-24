@@ -1,12 +1,12 @@
-package ch.esgroup.polaris.navigation.service;
+package ch.esgroup.polaris.nodes.service;
 
 import java.util.Collection;
 
 import javax.ws.rs.core.Response;
 
-import ch.esgroup.polaris.navigation.domain.Node;
+import ch.esgroup.polaris.nodes.domain.Node;
 
-public interface NavigationService {
+public interface NodesService {
 
 	Node get(Long id);
 
