@@ -14,59 +14,51 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import ch.esgroup.polaris.nodes.domain.Node;
-import ch.esgroup.polaris.nodes.service.NodesService;
+import ch.esgroup.polaris.settings.domain.Setting;
+import ch.esgroup.polaris.settings.service.SettingsService;
 
-@Path("/nodes/")
+@Path("/settings/")
 @Produces("application/json")
-public class SettingsServiceImpl implements NodesService {
+public class SettingsServiceImpl implements SettingsService {
 
-	private static final Map<String, Node> NODE_MAP = new HashMap<String, Node>();
+	private static final Map<String, Setting> SETTING_MAP = new HashMap<String, Setting>();
 
 	static {
-		NODE_MAP.put("main.home", new Node("main.home", "page", "Home", false, false, false, "home"));
-		NODE_MAP.put("main.menu", new Node("main.home.menu", "label", "Menu", false, false, false, null));
-		NODE_MAP.put("main.menu.page", new Node("main.menu.page", "page", "Page", false, false, false, "page"));
-		NODE_MAP.put("main.menu.divider", new Node("main.menu.divider", "divider", null, false, false, false, null));
-		NODE_MAP.put("main.menu.header", new Node("main.menu.header", "header", null, false, false, false, null));
-		NODE_MAP.put("main.menu.external", new Node("main.menu.external", "external", "External", false, false, false, "external"));
-		NODE_MAP.put("main.menu.modal", new Node("main.menu.modal", "modal", "Modal", false, false, false, "modal"));
-		NODE_MAP.put("main.menu.disabled", new Node("main.menu.disabled", "page", "Disabled", false, true, false, "disabled"));
-		NODE_MAP.put("main.menu.hidden", new Node("main.menu.hidden", "Hidden", "Disabled", false, false, false, "hidden"));
-		NODE_MAP.put("main.index", new Node("main.index", "index", "Index", true, false, false, "index"));
+		SETTING_MAP.put("main.home", new Setting("", ""));
+		SETTING_MAP.put("main.home", new Setting("", ""));
 	}
 
 	@GET
 	@Path("{id}")
-	public Node get(@PathParam("id") String id) {
-		return NODE_MAP.get(id);
+	public Setting get(@PathParam("id") String id) {
+		return SETTING_MAP.get(id);
 	}
 
 	@GET
-	public Collection<Node> getAll() {
-		return NODE_MAP.values();
+	public Collection<Setting> getAll() {
+		return SETTING_MAP.values();
 	}
 
 	@POST
 	@Consumes("application/json")
-	public Response post(Node node) {
-		System.out.println("Adding :" + node);
-		node.setId(node.getId());
-		put(node);
+	public Response post(Setting setting) {
+		System.out.println("Adding :" + setting);
+		setting.setId(setting.getId());
+		put(setting);
 		return Response.status(Response.Status.OK).build();
 	}
 
 	@PUT
 	@Consumes("application/json")
-	public Response put(Node node) {
-		System.out.println("Updating :" + node);
-		NODE_MAP.put(node.getId(), node);
+	public Response put(Setting setting) {
+		System.out.println("Updating :" + setting);
+		SETTING_MAP.put(setting.getId(), setting);
 		return Response.status(Response.Status.OK).build();
 	}
 
 	@DELETE
 	public Response delete(@PathParam("id") String id) {
-		Node e = NODE_MAP.remove(id);
+		Setting e = SETTING_MAP.remove(id);
 		System.out.println("Deleted :" + e);
 		return Response.status(Response.Status.OK).build();
 	}

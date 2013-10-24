@@ -4,17 +4,17 @@ import java.util.Collection;
 
 import javax.ws.rs.core.Response;
 
-import ch.esgroup.polaris.nodes.domain.Node;
+import ch.esgroup.polaris.settings.domain.Setting;
 
 public interface SettingsService {
 
-	Node get(String id);
+	Setting get(String id);
 
-	Collection<Node> getAll();
+	Collection<Setting> getAll();
 
-	Response post(Node employee);
+	Response post(Setting setting);
 
-	Response put(Node employee);
+	Response put(Setting setting);
 
 	Response delete(String id);
 
