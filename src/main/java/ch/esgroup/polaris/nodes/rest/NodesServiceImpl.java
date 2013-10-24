@@ -38,7 +38,7 @@ public class NodesServiceImpl implements NodesService {
 
 	@GET
 	@Path("{id}")
-	public Node get(@PathParam("id") Long id) {
+	public Node get(@PathParam("id") String id) {
 		return NODE_MAP.get(id);
 	}
 
@@ -65,7 +65,7 @@ public class NodesServiceImpl implements NodesService {
 	}
 
 	@DELETE
-	public Response delete(@PathParam("id") Long id) {
+	public Response delete(@PathParam("id") String id) {
 		Node e = NODE_MAP.remove(id);
 		System.out.println("Deleted :" + e);
 		return Response.status(Response.Status.OK).build();

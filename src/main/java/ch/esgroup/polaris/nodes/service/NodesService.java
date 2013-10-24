@@ -8,7 +8,7 @@ import ch.esgroup.polaris.nodes.domain.Node;
 
 public interface NodesService {
 
-	Node get(Long id);
+	Node get(String id);
 
 	Collection<Node> getAll();
 
@@ -16,6 +16,6 @@ public interface NodesService {
 
 	Response put(Node employee);
 
-	Response delete(Long id);
+	Response delete(String id);
 
 }
