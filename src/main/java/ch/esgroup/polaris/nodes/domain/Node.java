@@ -84,7 +84,7 @@ public class Node implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Node{" + "id=" + id + ", type='" + type + '\'' + ", label='" + label + '\'' + ", hidden='" + hidden + '\'' + ", disabled='" + disabled + '\'' + ", active='" + active + '\'' + ", bookmark='" + bookmark + '\'' + '}';
+		return "{" + "id=" + id + ", type='" + type + '\'' + ", label='" + label + '\'' + ", hidden='" + hidden + '\'' + ", disabled='" + disabled + '\'' + ", active='" + active + '\'' + ", bookmark='" + bookmark + '\'' + '}';
 	}
 
 }
