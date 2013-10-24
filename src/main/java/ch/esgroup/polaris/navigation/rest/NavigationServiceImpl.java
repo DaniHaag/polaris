@@ -19,7 +19,7 @@ import ch.esgroup.polaris.navigation.service.NavigationService;
 
 @Path("/nodes/")
 @Produces("application/json")
-public class NavigationRestService implements NavigationService {
+public class NavigationServiceImpl implements NavigationService {
 
 	private static final Map<String, Node> NODE_MAP = new HashMap<String, Node>();
 
