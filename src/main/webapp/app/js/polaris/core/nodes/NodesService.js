@@ -1,19 +1,19 @@
 define([ 'when' ], function(when) {
 
-	function NodesService(remoteStore, options) {
-		this.remoteStore = remoteStore;
+	function NodesService(store, options) {
+		this.store = store;
 	}
 
 	NodesService.prototype = {
 
-		remoteStore : null,
+		store : null,
 
 		getNode : function(id, options) {
-			return this.remoteStore.get(id);
+			return when(this.store.get(id));
 		},
 
 		getNodes : function(options) {
-			return this.remoteStore.query();
+			return when(this.store.query());
 		}
 
 	};

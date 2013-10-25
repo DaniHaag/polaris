@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:moap="http://goto/it-moap?attributes"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-    http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+<beans 
+
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:context="http://www.springframework.org/schema/context"  
+xmlns:jaxrs="http://cxf.apache.org/jaxrs" 
+
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<context:component-scan base-package="ch.esgroup.polaris" />
 
-	<bean id="nodesService" class="ch.esgroup.polaris.nodes.rest.NodesServiceImpl" />
-	
 	<bean id="settingsService" class="ch.esgroup.polaris.settings.rest.SettingsServiceImpl" />
+	<bean id="routesService" class="ch.esgroup.polaris.routes.rest.RoutesServiceImpl" />
+	<bean id="nodesService" class="ch.esgroup.polaris.nodes.rest.NodesServiceImpl" />
 
 	<jaxrs:server id="polarisRestServices" address="/rest">
+
 		<jaxrs:serviceBeans>
-			<ref bean="nodesService" />
 			<ref bean="settingsService" />
+			<ref bean="routesService" />
+			<ref bean="nodesService" />
 		</jaxrs:serviceBeans>
+
 		<jaxrs:extensionMappings>
 			<entry key="xml" value="application/xml" />
 			<entry key="json" value="application/json" />
 		</jaxrs:extensionMappings>
+
 		<jaxrs:providers>
 			<bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
 		</jaxrs:providers>
+
 	</jaxrs:server>
 
 </beans>

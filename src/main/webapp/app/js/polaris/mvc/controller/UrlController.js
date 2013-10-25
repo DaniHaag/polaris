@@ -3,15 +3,6 @@
 	function UrlController(scope, context) {
 		this.scope = $(scope);
 		this.context = context;
-		this.handlers = {};
-
-		this.scope.bind(UrlController.DEACTIVATE_HANDLERS, function() {
-			for (var handler in this.handlers) {
-				if (this.handlers.hasOwnProperty(handler)) {
-					this.handlers[handler].deactivate();
-				}
-			}
-		}.bind(this));
 	}
 
 	UrlController.DEACTIVATE_HANDLERS = 'DEACTIVATE_HANDLERS';
@@ -22,44 +13,40 @@
 			
 		handlers : null,
 
-		Wrapper : function(handler, scope) {
+		RouteHandlerWrapper : function(handler, scope) {
 
-			var selfWrapper = this;
+			var self = this;
 			
-			this.handler = handler;
+			this.routeHandler = handler;
 			
 			this.scope = scope;
 
 			this.activate = function(vals) {
 				scope.trigger(UrlController.DEACTIVATE_HANDLERS);
-				selfWrapper.handler.activate(this.scope, vals);
+				self.routeHandler.activate(this.scope, vals);
 			}.bind(this);
 
 			this.deactivate = function() {
-				if (jQuery.isFunction(selfWrapper.handler.deactivate)) {
-					selfWrapper.handler.deactivate();
+				if (jQuery.isFunction(self.routeHandler.deactivate)) {
+					self.routeHandler.deactivate();
 				}
 			};
 		},
 
-		addRoute : function(route, handler, options) {
-			var handlerObj = new this.Wrapper(handler, this.scope);
-			this.context.routingService.addRoute(route, handlerObj.activate, options);
-			this.handlers[route] = handlerObj;
-		},
-		
-		addRoutes : function(handlers) {
-			for (var route in handlers) {
-				if (handlers.hasOwnProperty(route)) {
-					var handlerObj = new this.Wrapper(handlers[route], this.scope);
-					this.routingService.addRoute(route, handlerObj.activate);
-					this.handlers[route] = handlerObj;
-				}
-			}
+		addRouteHandler : function(route, model, serialize, handler) {
+			var routeHandlerWrapper = new this.RouteHandlerWrapper(handler, this.scope);
+			this.context.routingService.addHandler(route, {
+				model : model,
+				serialize : serialize,
+				setup : routeHandlerWrapper.activate
+			});
+			this.scope.bind(UrlController.DEACTIVATE_HANDLERS, function() {
+				routeHandlerWrapper.deactivate();
+			}.bind(this));
 		},
 
 		start : function() {
-			this.context.routingService.init();
+			this.context.routingService.start();
 		}
 
 	};
