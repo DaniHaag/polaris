@@ -7,7 +7,8 @@ require.config({
     //urlArgs: 'timestamp=' + (new Date()).getTime(),
 
     paths: {
-    	bootstrap: 'lib/bootstrap/dist/js/bootstrap',
+    	less: 'lib/less/less-1.4.2',
+    	bootstrap: 'lib/bootstrap/js/bootstrap',
     	modernizr : 'lib/modernizr/modernizr',
     	respond : 'lib/respond/respond.src',
     	jquery: 'lib/jquery/jquery-1.10.2',
@@ -30,7 +31,7 @@ require.config({
 
     shim: {
         bootstrap: {
-            deps: [ 'modernizr', 'respond', 'jquery' ]
+            deps: [ 'less', 'poly/object', , 'poly/string', 'poly/array', 'modernizr', 'respond', 'jquery' ]
         },
         history: { exports: 'History' },
     },

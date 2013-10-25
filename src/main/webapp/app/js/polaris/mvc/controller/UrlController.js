@@ -21,9 +21,9 @@
 			
 			this.scope = scope;
 
-			this.activate = function(vals) {
+			this.activate = function(model) {
 				scope.trigger(UrlController.DEACTIVATE_HANDLERS);
-				self.routeHandler.activate(this.scope, vals);
+				self.routeHandler.activate(this.scope, model);
 			}.bind(this);
 
 			this.deactivate = function() {
@@ -33,13 +33,10 @@
 			};
 		},
 
-		addRouteHandler : function(route, model, serialize, handler) {
-			var routeHandlerWrapper = new this.RouteHandlerWrapper(handler, this.scope);
-			this.context.routingService.addHandler(route, {
-				model : model,
-				serialize : serialize,
-				setup : routeHandlerWrapper.activate
-			});
+		addRouteHandler : function(route, handler) {
+			var routeHandlerWrapper = new this.RouteHandlerWrapper(handler.setup, this.scope);
+			handler.setup = routeHandlerWrapper.activate;
+			this.context.routingService.addHandler(route, handler);
 			this.scope.bind(UrlController.DEACTIVATE_HANDLERS, function() {
 				routeHandlerWrapper.deactivate();
 			}.bind(this));

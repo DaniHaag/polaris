@@ -14,30 +14,41 @@
     <meta name="viewport" content="width=device-width">
     <title></title>
     <link type="text/css" rel="stylesheet" href="lib/font-awesome/css/font-awesome.css" />
-    <link type="text/css" rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-    <script type="text/javascript" src="lib/es5-shim/es5-shim.js"></script>
-    <script type="text/javascript" src="lib/es5-shim/es5-sham.js"></script>
-    <script type="text/javascript" src="lib/es6-shim/es6-shim.js"></script>
+    <link type="text/css" rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="lib/bootstrap/css/bootstrap-responsive.css" />
     <link type="text/css" rel="stylesheet/less" href="theme/theme.less" />
-    <script type="text/javascript" src="lib/less/less-1.4.2.js"></script>
 </head>
 <body class="theme">
 	<div class="app">
-		<header class="navbar navbar-default navbar-inverse navbar-fixed-top">
+		<header class="navbar-wrapper">
+			<!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
 			<div class="container">
-				<div class="navbar-header">
-					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-						<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-					</button>
-					<a href="#/node/home" class="navbar-brand">Polaris</a>
+
+				<div class="navbar navbar-inverse">
+					<div class="navbar-inner">
+						<!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+						<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+							<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+						</button>
+						<a class="brand" href="#/node/home">Polaris</a>
+						<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+						<div class="globalNavigation nav-collapse collapse">
+						</div>
+						<!--/.nav-collapse -->
+					</div>
+					<!-- /.navbar-inner -->
 				</div>
-				<nav class="globalNavigation navbar-collapse collapse"></nav
+				<!-- /.navbar -->
+
 			</div>
+			<!-- /.container -->
 		</header>
-		<section class="container content">
-		</section>
+		<!-- /.navbar-wrapper -->
+		<section class="container content"></section>
 		<footer class="container">
-			<div class="disclaimers" class="col-md-12"></div>
+			<div class="row">
+				<div class="disclaimers span4"></div>
+			</div>
 		</footer>
 	</div>
 	<script type="text/javascript" src="lib/require/require.js" data-main="app/main"></script>

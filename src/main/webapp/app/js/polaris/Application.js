@@ -51,8 +51,8 @@
                 var serialize = function (post) {
                     return { id: post.get('id') };
                 }.bind(this);
-                urlController.addRouteHandler('page', model, serialize, new PageBundle(this.context));
-                urlController.addRouteHandler('index', model, serialize, new PageBundle(this.context));
+                urlController.addRouteHandler('page', { model: model, serialize: serialize, setup: new PageBundle(this.context)});
+                urlController.addRouteHandler('index', { model: model, serialize: serialize, setup: new PageBundle(this.context)});
                 urlController.start();
             },
             
